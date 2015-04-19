@@ -82,7 +82,7 @@ void T_TX_InterfaceMNAV::putBackIntoCfg(SimpleXMLTransfer* config)
   config->setAttributeOverwrite("inputMethod.mnav.device",   device);  
 }
 
-void T_TX_InterfaceMNAV::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceMNAV::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("void T_TX_InterfaceMNAV::getInputData(TSimInputs* inputs)\n");
@@ -213,4 +213,5 @@ void T_TX_InterfaceMNAV::getInputData(TSimInputs* inputs)
 
     //fprintf(stderr, "[servo]: 0:0x%04hx 1:0x%04hx 2:0x%04hx reverse:0x%04hx\n\n", cnt_cmd[0], cnt_cmd[1], cnt_cmd[2], (uint16_t)reverse);
   }
+  return true;
 }

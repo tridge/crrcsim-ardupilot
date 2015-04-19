@@ -75,7 +75,7 @@ class T_TX_InterfaceSerial: public T_TX_Interface
     virtual void setDeviceSpeed (int speed);
 
     // Data access
-    virtual void getInputData (TSimInputs *inputs); // Called by the simulator to get the input data
+    virtual bool getInputData (TSimInputs *inputs); // Called by the simulator to get the input data
     virtual void getRawData(float* target); // Needed for calibration
 
     // I/O

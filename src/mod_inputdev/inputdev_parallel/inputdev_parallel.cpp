@@ -160,10 +160,11 @@ int T_TX_InterfaceParallel::init(SimpleXMLTransfer* config)
 }
 
 
-void T_TX_InterfaceParallel::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceParallel::getInputData(TSimInputs* inputs)
 {
   get_data_from_parallel_interface(rc_channel_values);
   T_TX_InterfacePPM::getInputData(inputs);
+  return true;
 }
 
 

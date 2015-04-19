@@ -63,11 +63,12 @@ std::string T_TX_Interface::getErrMsg()
 };
 
 
-void T_TX_Interface::getInputData(TSimInputs* inputs)
+bool T_TX_Interface::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("void T_TX_Interface::getInputData(TSimInputs* inputs)\n");
 #endif
+  return true;
 }
 
 T_TX_Interface::T_TX_Interface()

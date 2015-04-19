@@ -86,7 +86,7 @@ class T_TX_InterfaceAudio : public T_TX_InterfacePPM
     * Set current input data. If some value is not available, the value 
     * is not overwritten.
     */
-   void getInputData(TSimInputs* inputs);
+   bool getInputData(TSimInputs* inputs);
    
    /**
     * Write configuration back

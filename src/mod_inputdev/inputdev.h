@@ -329,7 +329,7 @@ class T_TX_Interface
      * throttle: 0.0 .. 1.0
      * others?   
      */
-    virtual void getInputData(TSimInputs* inputs);
+    virtual bool getInputData(TSimInputs* inputs);
    
     /**
      * Get raw interface data. Needed for calibration.

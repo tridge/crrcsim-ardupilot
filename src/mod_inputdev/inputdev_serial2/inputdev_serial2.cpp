@@ -70,7 +70,7 @@ void T_TX_InterfaceSerial2::putBackIntoCfg(SimpleXMLTransfer* config)
   config->setAttributeOverwrite("inputMethod.serial2.baudrate", baudrate);  
 }
 
-void T_TX_InterfaceSerial2::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceSerial2::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("void T_TX_InterfaceSerial2::getInputData(TSimInputs* inputs)\n");
@@ -108,4 +108,5 @@ void T_TX_InterfaceSerial2::getInputData(TSimInputs* inputs)
     inputs->throttle =  nThrottle/31.0;
   else
     inputs->throttle = 0;
+  return true;
 }

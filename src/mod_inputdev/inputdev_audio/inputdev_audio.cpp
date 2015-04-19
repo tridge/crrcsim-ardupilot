@@ -178,7 +178,7 @@ int T_TX_InterfaceAudio::init(SimpleXMLTransfer* config)
  *
  *  \param inputs Pointer to a structure that stores the input values.
  */
-void T_TX_InterfaceAudio::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceAudio::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("void T_TX_InterfaceAudio::getInputData(TSimInputs* inputs)\n");
@@ -186,6 +186,7 @@ void T_TX_InterfaceAudio::getInputData(TSimInputs* inputs)
   
   get_data_from_audio_interface(rc_channel_values);
   T_TX_InterfacePPM::getInputData(inputs);
+  return true;
 }
 
 

@@ -52,12 +52,13 @@ int T_TX_InterfacePPM::init(SimpleXMLTransfer* config)
   return(T_TX_Interface::init(config));
 }
 
-void T_TX_InterfacePPM::getInputData(TSimInputs* inputs)
+bool T_TX_InterfacePPM::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("int T_TX_InterfacePPM::getInputData(TSimInputs* inputs)\n");
 #endif
   CalibMixMapValues(inputs, rc_channel_values);
+  return true;
 }
 
 

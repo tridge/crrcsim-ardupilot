@@ -120,7 +120,7 @@ void T_TX_InterfaceSoftware::putBackIntoCfg(SimpleXMLTransfer* config)
   }
 }
 
-void T_TX_InterfaceSoftware::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceSoftware::getInputData(TSimInputs* inputs)
 {
 #if DEBUG_TX_INTERFACE > 1
   printf("void T_TX_InterfaceSoftware::getInputData(TSimInputs* inputs)\n");
@@ -261,6 +261,7 @@ void T_TX_InterfaceSoftware::getInputData(TSimInputs* inputs)
   inputs->spoiler  = limit_unsigned(mixer->mix_mixer(calibrated, T_AxisMapper::SPOILER));
   inputs->retract  = limit_unsigned(mixer->mix_mixer(calibrated, T_AxisMapper::RETRACT));
   inputs->pitch    = limit(mixer->mix_mixer(calibrated, T_AxisMapper::PITCH));
+  return true;
 }
 
 

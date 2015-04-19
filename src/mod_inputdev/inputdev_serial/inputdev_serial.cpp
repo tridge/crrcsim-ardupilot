@@ -270,12 +270,13 @@ void T_TX_InterfaceSerial::setRts (bool rts)/*{{{*/
 // ** Data access **
 // *****************
 
-void T_TX_InterfaceSerial::getInputData (TSimInputs *inputs)/*{{{*/
+bool T_TX_InterfaceSerial::getInputData (TSimInputs *inputs)/*{{{*/
 {
   // Read serial data and update rawData[]
   readSerialData ();
 
   CalibMixMapValues(inputs, rawData);
+  return true;
 }
 /*}}}*/
 

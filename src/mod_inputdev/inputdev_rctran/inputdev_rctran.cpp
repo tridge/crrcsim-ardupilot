@@ -71,10 +71,11 @@ void T_TX_InterfaceRCTRAN::putBackIntoCfg(SimpleXMLTransfer* config)
   map->putBackIntoCfg(config);
 }
 
-void T_TX_InterfaceRCTRAN::getInputData(TSimInputs* inputs)
+bool T_TX_InterfaceRCTRAN::getInputData(TSimInputs* inputs)
 {
   getRawData(myFloatValues);
   CalibMixMapValues(inputs, myFloatValues);
+  return true;
 }
 
 

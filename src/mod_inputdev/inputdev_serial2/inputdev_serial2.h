@@ -63,7 +63,7 @@ class T_TX_InterfaceSerial2 : public T_TX_Interface
     * Set current input data. If some value is not available, the value 
     * is not overwritten.
     */
-   void getInputData(TSimInputs* inputs);
+   bool getInputData(TSimInputs* inputs);
    
   private:
    LoggerReader_ttyS* input;

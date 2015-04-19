@@ -56,7 +56,7 @@ class T_TX_InterfacePPM : public T_TX_Interface
     * Set current input data. If some value is not available, the value
     * is not overwritten.
     */
-   virtual void getInputData(TSimInputs* inputs);
+   virtual bool getInputData(TSimInputs* inputs);
 
    /** \brief Get raw interface data as float values.
     *

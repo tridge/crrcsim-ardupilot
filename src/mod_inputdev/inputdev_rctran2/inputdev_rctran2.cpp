@@ -71,7 +71,7 @@ int T_TX_Interface_RCTran2::init(SimpleXMLTransfer* config)
 #endif
 }
 
-void T_TX_Interface_RCTran2::getInputData(TSimInputs* inputs)
+bool T_TX_Interface_RCTran2::getInputData(TSimInputs* inputs)
 {
   // read values from file
   int nVal[8];
@@ -88,6 +88,7 @@ void T_TX_Interface_RCTran2::getInputData(TSimInputs* inputs)
   }
 
   T_TX_InterfacePPM::getInputData(inputs);
+  return true;
 }
 
 void T_TX_Interface_RCTran2::putBackIntoCfg(SimpleXMLTransfer* config)
