@@ -107,6 +107,7 @@ If you'd like to help with CRRCSIM, then send me an email!
 #include <math.h>
 #include <string>
 #include <time.h>
+#include <pthread.h>
 
 //#define LOG_FRAMES
 
@@ -619,6 +620,30 @@ void load_initial_scenery(T_Config *cfg)
 }
 
 
+/*
+  FDM thread. All FDM physics updates happen within this thread,
+  decoupling it from the display
+ */
+static void *fdm_thread(void *)
+{
+    // advance by one step to get the display started
+    Global::lockFDM();
+    Global::aircraft->getFDMInterface()->update(&Global::inputs, Global::dt, 1);
+    Global::Simulation->incSimSteps(1);
+    Global::unlockFDM();
+
+    while (true) {
+        if (Global::TXInterface->getInputData(&Global::inputs)) {
+            Global::lockFDM();
+            Global::aircraft->getFDMInterface()->update(&Global::inputs, Global::dt, 1);
+            Global::Simulation->incSimSteps(1);
+            Global::unlockFDM();
+        }
+    }
+    return NULL;
+}
+  
+
 
 /*****************************************************************************/
 int main(int argc,char **argv)
@@ -629,7 +654,20 @@ int main(int argc,char **argv)
   {
     crrc_exit(CRRC_EXIT_SUCCESS);
   }
-  
+
+  Global::lockFDM();
+
+  /*
+    the FDM code runs in a separate thread to decouple the display
+    update from FDM.
+   */
+  pthread_t fdm_thread_id;
+  pthread_attr_t thread_attr;
+  pthread_attr_init(&thread_attr);
+  pthread_attr_setdetachstate(&thread_attr, 0);
+  pthread_create(&fdm_thread_id, &thread_attr, fdm_thread, NULL);
+  pthread_attr_destroy(&thread_attr);
+     
   try
   {
     //Internationalisation
@@ -867,13 +905,16 @@ int main(int argc,char **argv)
     
     Scheduler scheduler;
     EventHandler eventHandler(&scheduler);
-    
+
+    Global::TXInterface->getInputData(&Global::inputs);
+
+    Global::unlockFDM();
+
     while (Global::Simulation->getState() != STATE_EXIT)
     {
       crrc_time->update();
       scheduler.Run();
 
-      Global::TXInterface->getInputData(&Global::inputs);
       raiseInputEvent(Global::inputs);
       
       if (Global::training_mode)
@@ -934,7 +975,7 @@ int main(int argc,char **argv)
           std::string drate = "OFF";
           std::string mixers = "";
           
-          if (Global::TXInterface->mixer->enabled)
+          if (Global::TXInterface->mixer && Global::TXInterface->mixer->enabled)
           {
             if (Global::TXInterface->mixer->dr_enabled)
               drate = "ON";
@@ -1022,6 +1063,9 @@ int main(int argc,char **argv)
     s += e.what();
     crrc_exit(CRRC_EXIT_FAILURE, s.c_str());
   }
+
+  pthread_cancel(fdm_thread_id);
+  Global::lockFDM();
 
   delete fdmenv;
   if (vario_sound != (T_VariometerSound*)0)

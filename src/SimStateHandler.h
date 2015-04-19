@@ -115,6 +115,9 @@ class SimStateHandler : public EventListener
 
     /// increase number of simulation steps
     void incSimSteps(int multiloop) {sim_steps += multiloop;};
+
+    /// return number of simulation steps
+    unsigned long SimSteps(void) {return sim_steps;}
     
     /// get the total time since the sim was launched (in ms)
     unsigned long int getTotalTime() const {return SDL_GetTicks();};

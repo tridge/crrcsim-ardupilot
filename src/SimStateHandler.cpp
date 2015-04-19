@@ -49,10 +49,7 @@
 void idle(TSimInputs* inputs)
 {
   static int initialization_time = 0;  
-  static int time_after_last_integration = 0; // Time after the last integration of EOMs  
-  static double dDeltaT = 0; // Difference between display and EOM time
-  int   nDeltaTicks;
-  int   multiloop;
+  static unsigned long int last_sim_steps;
   int   current_time;
 
   /**
@@ -66,23 +63,17 @@ void idle(TSimInputs* inputs)
   {    
     initialization_time=current_time;
     current_time = 0;
-    time_after_last_integration=0;
     Global::Simulation->setState(STATE_RUN);
   }
   else
     current_time -= initialization_time;
 
-  // compute ticks since last execution of this code (considering pauses):
-  nDeltaTicks = current_time - time_after_last_integration;
-  time_after_last_integration = current_time;
-  // The flight model should be calculated every dt seconds.
-  multiloop=(int)(nDeltaTicks/1000.0/Global::dt - dDeltaT + 0.5);
-  dDeltaT += multiloop*Global::dt - nDeltaTicks/1000.0;
-  update_thermals(Global::dt * multiloop);
+  unsigned long sim_steps = Global::Simulation->SimSteps();
+  double dt = (sim_steps - last_sim_steps) * Global::dt;
+  last_sim_steps = sim_steps;
 
-  Global::aircraft->getFDMInterface()->update(inputs, Global::dt, multiloop);
-  Global::Simulation->incSimSteps(multiloop);
-  
+  update_thermals(dt);
+
   if (nAircraftOutsideWindfieldSim)
     Global::verboseString += " Outside windfield simulation!";
 
@@ -92,14 +83,14 @@ void idle(TSimInputs* inputs)
 
   Global::gameHandler->update(X_cg_rwy,Y_cg_rwy,H_cg_rwy, Global::recorder, Global::robots);
   
-  Global::recorder->AirplanePosition(Global::dt, multiloop, Global::aircraft->getFDMInterface()->fdm);
+  Global::recorder->AirplanePosition(dt, 1, Global::aircraft->getFDMInterface()->fdm);
 
-  Global::robots->Update(Global::dt, multiloop);  
+  Global::robots->Update(dt, 1);  
   
   if(! Global::testmode.test_mode)//the camera is still on test_mode
-        Video::UpdateCamera(Global::dt * multiloop);
+        Video::UpdateCamera(dt);
   
-  Global::TXInterface->update(Global::dt * multiloop);
+  Global::TXInterface->update(dt);
 }
 
 

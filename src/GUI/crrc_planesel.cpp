@@ -836,6 +836,7 @@ void CGUIPlaneSelCallback(puObject *obj)
       
       try
       {
+        Global::lockFDM();
         loadAirplane();
         
         // check if the user wants to load the default launch settings
@@ -871,6 +872,7 @@ void CGUIPlaneSelCallback(puObject *obj)
         }
                 
         initialize_flight_model();
+        Global::unlockFDM();
         if (Global::soundserver != (CRRCAudioServer*)0)
           Global::soundserver->pause(false);
       }
