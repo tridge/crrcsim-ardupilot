@@ -160,6 +160,10 @@ crrcsim_SOURCES = src/mod_mode/F3F/handlerF3F.h \
        src/mod_inputdev/inputdev_mnav/mnav.h \
        src/mod_inputdev/inputdev_mnav/inputdev_mnav.cpp \
        src/mod_inputdev/inputdev_mnav/mnav.cpp \
+       src/mod_inputdev/inputdev_apm/inputdev_apm.h \
+       src/mod_inputdev/inputdev_apm/apm.h \
+       src/mod_inputdev/inputdev_apm/inputdev_apm.cpp \
+       src/mod_inputdev/inputdev_apm/apm.cpp \
        src/mod_inputdev/inputdev_parallel/inputdev_parallel.h \
        src/mod_inputdev/inputdev_parallel/inputdev_parallel.cpp \
        src/mod_inputdev/inputdev_PPM/inputdev_PPM.h \

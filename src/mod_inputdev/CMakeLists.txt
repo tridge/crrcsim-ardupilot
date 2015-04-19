@@ -4,6 +4,9 @@ set(MOD_INPUTDEV_SRCS
   inputdev_mnav/inputdev_mnav.cpp
   inputdev_mnav/inputdev_mnav.h
   inputdev_mnav/mnav.cpp
+  inputdev_apm/inputdev_apm.cpp
+  inputdev_apm/inputdev_apm.h
+  inputdev_apm/apm.cpp
   inputdev_parallel/inputdev_parallel.cpp
   inputdev_PPM/inputdev_PPM.cpp
   inputdev_rctran/inputdev_rctran.cpp

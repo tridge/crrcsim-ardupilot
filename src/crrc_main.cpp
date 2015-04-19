@@ -86,6 +86,7 @@ If you'd like to help with CRRCSIM, then send me an email!
 
 #include "mod_inputdev/inputdev_serial2/inputdev_serial2.h"
 #include "mod_inputdev/inputdev_mnav/inputdev_mnav.h"
+#include "mod_inputdev/inputdev_apm/inputdev_apm.h"
 #include "mod_inputdev/inputdev_audio/inputdev_audio.h"
 #include "mod_inputdev/inputdev_parallel/inputdev_parallel.h"
 #include "mod_inputdev/inputdev_software/inputdev_software.h"
@@ -433,6 +434,13 @@ std::string reconfigureInputMethod(bool boRevertToMouse)
       strU(Global::inputDev->InputMethodStrings[T_TX_Interface::eIM_mnav])) == 0)
   {
     Global::TXInterface  = new T_TX_InterfaceMNAV();
+    if (Global::TXInterface->init(cfgfile))
+      return(input_method_failed(Global::TXInterface->getErrMsg(), boRevertToMouse));
+  }
+  else if (method.compare(
+      strU(Global::inputDev->InputMethodStrings[T_TX_Interface::eIM_apm])) == 0)
+  {
+    Global::TXInterface  = new T_TX_InterfaceAPM();
     if (Global::TXInterface->init(cfgfile))
       return(input_method_failed(Global::TXInterface->getErrMsg(), boRevertToMouse));
   }

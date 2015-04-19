@@ -267,6 +267,7 @@ TInputDev::TInputDev()//constructor
     lInputMethodStrings[T_TX_Interface::eIM_mnav]     = "MNAV";
     lInputMethodStrings[T_TX_Interface::eIM_zhenhua]  = "ZhenHua";
     lInputMethodStrings[T_TX_Interface::eIM_CT6A]     = "CT6A";
+    lInputMethodStrings[T_TX_Interface::eIM_apm]      = "APM";
     int size;
     InputMethodStrings = T_GUI_Util::loadnames(lInputMethodStrings, size);
   }
@@ -284,6 +285,7 @@ TInputDev::TInputDev()//constructor
     lInputMethodStrings[T_TX_Interface::eIM_mnav]     = "MNAV";
     lInputMethodStrings[T_TX_Interface::eIM_zhenhua]  = "ZhenHua";
     lInputMethodStrings[T_TX_Interface::eIM_CT6A]     = "CT6A";
+    lInputMethodStrings[T_TX_Interface::eIM_apm]     = "APM";
     int size;     
     InputMethodStringsGUI = T_GUI_Util::loadnames(lInputMethodStrings, size);
   }
