@@ -32,6 +32,7 @@
 #define GLOBAL_H
 
 #include <string>
+#include <pthread.h>
 #include "mod_fdm/fdm_inputs.h"
 #include "mod_inputdev/inputdev.h"
 #include "mouse_kbd.h"
@@ -77,6 +78,7 @@ struct TestModeData
 class Global
 {
   public:
+    Global(void);
     static SimStateHandler* Simulation;     ///< The simulation's main state machine.
     static int              training_mode;  ///< Draw thermals in the sky?
     static int              nVerbosity;     ///< How much info in the HUD?
@@ -96,6 +98,12 @@ class Global
     static Aircraft*        aircraft;       ///< A complete Aircraft (model & FDM).
     static FlightRecorder*  recorder;
     static Robots*          robots;
+
+    static void lockFDM(void) { pthread_mutex_lock(&fdm_lock); }
+    static void unlockFDM(void) { pthread_mutex_unlock(&fdm_lock); }
+
+private:
+    static pthread_mutex_t  fdm_lock;
 };
 
 
