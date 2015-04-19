@@ -34,8 +34,10 @@
 #include "../../mod_misc/lib_conversions.h"
 #include "../xmlmodelfile.h"
 
-#define PITCH_FIXED_PITCH          1.0
-#define THROTTLE_COLLECTIVE_PITCH  1.0
+#pragma GCC optimize("O0")
+
+#define PITCH_FIXED_PITCH          0.3
+#define THROTTLE_COLLECTIVE_PITCH  0.8
 
 /**
  * *****************************************************************************
@@ -495,8 +497,8 @@ void CRRC_AirplaneSim_Heli01::engine( SCALAR dt, TSimInputs* inputs, CRRCMath::V
   }
   else
   {
-    inputs->pitch    = cp_ctrl * (inputs->throttle - 0.5) + cp_off;
-    inputs->throttle = THROTTLE_COLLECTIVE_PITCH;
+      // the engine expects a wider range of pitch than -0.5 to 0.5
+      inputs->pitch *= 3;
   }
   
   power->step(dt, inputs, 
@@ -571,6 +573,9 @@ void CRRC_AirplaneSim_Heli01::aero(double dt, TSimInputs* inputs, CRRCMath::Vect
                           yc
                           - yd         * v_R_omega_body.r[2]           // yaw damping is linear (gyro!)
                           + yaw_dist   * filt_rnd_yaw.val * dGEMul);
+
+  // make all moments proportional to rotor speed
+  v_M *= inputs->throttle;
 
   // When not hovering and not being a coaxial rotor, relative wind velocity adds 
   // differently to the blades veloctiy, and creates a moment normal to moving
