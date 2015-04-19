@@ -70,6 +70,8 @@ public:
     // write to device (buf = buffer from which to write, count = number number of bytes to write,
     //   uses wait, returns number of bytes written or -1 on error)
     ssize_t write( const void *buf, size_t count );
+    // blocking read
+    ssize_t read_blocking( void *buf, size_t count );
     // close device, called last time by destructor (returns 0 on success or -1 on error)
     int close( void );
     // close current client (returns 0 on success or -1 on error)

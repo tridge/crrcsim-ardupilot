@@ -298,3 +298,21 @@ bool UdpServerCharDevice::connected( void )
 {
     return ( fd != INVALID_SOCKET && connectedClientAddrValid );
 }
+
+// blocking read from device
+ssize_t UdpServerCharDevice::read_blocking( void *buf, size_t count )
+{
+    sockaddr_in addr;
+    socklen_t socklen = sizeof(addr);
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(fd, &fds);
+    select(fd+1, &fds, NULL, NULL, NULL);
+
+    ssize_t retval = ::recvfrom( fd, buf, count, MSG_WAITALL, (sockaddr*)&addr, &socklen);
+    if (retval > 0) {
+        connectedClientAddrValid = true;
+        connectedClientAddr = addr;
+    }
+    return retval;
+}
