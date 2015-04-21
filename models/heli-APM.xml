@@ -213,10 +213,10 @@ helicopters and conditions.
       <sample filename="fan.wav" type="1" pitchfactor="0.03" maxvolume="1" />
     </sound>
     <aero version="1" >
-      <yaw   ctrl="24" damp="20" damp_min_rel="0.25" dist="0" vane="0.2" moment_mul="1" />
-      <pitch vane="0.04" />
-      <roll  ctrl="4" damp="4" dist="0" ForwardToRoll="0" />
-      <cp    ctrl="3" />
+      <yaw   ctrl="60" damp="20" damp_min_rel="0.25" dist="0" vane="0.2" moment_mul="1" />
+      <pitch ctrl="5" vane="0.04" />
+      <roll  ctrl="5" damp="4" dist="0" ForwardToRoll="0" />
+      <cp    ctrl="6" />
       <speed damp="0.03" />
     </aero>  
     <power fixed_pitch="0" >
