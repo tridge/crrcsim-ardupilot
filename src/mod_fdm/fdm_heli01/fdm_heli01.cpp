@@ -498,7 +498,7 @@ void CRRC_AirplaneSim_Heli01::engine( SCALAR dt, TSimInputs* inputs, CRRCMath::V
   else
   {
       // the engine expects a wider range of pitch than -0.5 to 0.5
-      inputs->pitch *= 3;
+      inputs->pitch *= cp_ctrl;
   }
   
   power->step(dt, inputs, 
