@@ -336,7 +336,7 @@ EXTRA_DIST = Doxyfile autogen.sh \
 crrcsim_CXXFLAGS = $(GLU_CFLAGS) $(PA_CFLAGS) $(SDL_CFLAGS) $(CGAL_CFLAGS) -DPU_USE_SDL \
                    -DCRRC_DATA_PATH="\"$(datadir)/@PACKAGE@\""
 crrcsim_LDADD = $(XTRA_OBJS) $(PA_LIBS) $(SDL_LIBS) \
-                $(CGAL_LIBS) -ljpeg -lplibssg -lplibsg -lplibpuaux -lplibpu -lplibul -lplibfnt \
+                $(CGAL_LIBS) -lgmp -ljpeg -lplibssg -lplibsg -lplibpuaux -lplibpu -lplibul -lplibfnt \
                 $(GLU_LIBS)
 
 crrcsim_DEPENDENCIES = $(XTRA_OBJS)

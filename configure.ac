@@ -8,7 +8,7 @@ dnl Init the autoconf macros
 AC_INIT(crrcsim, 0.9.12, crrcsim-devel@lists.berlios.de)
 
 dnl Init automake
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 
 dnl This project is written in C++
 AC_LANG(C++)
