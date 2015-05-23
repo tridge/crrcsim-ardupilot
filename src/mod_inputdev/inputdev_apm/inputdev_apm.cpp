@@ -116,7 +116,7 @@ bool T_TX_InterfaceAPM::getInputData(TSimInputs* inputs)
     apm_fdm.pitch = Global::aircraft->getFDM()->getTheta();
     apm_fdm.yaw = Global::aircraft->getFDM()->getPsi();
 
-    apm_fdm.airspeed = vel.length() * FEET2METERS;
+    apm_fdm.airspeed = Global::aircraft->getFDM()->getVRelAirmass() * FEET2METERS;
 
     input->put_state_data(&apm_fdm);
   
